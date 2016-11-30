@@ -10,17 +10,9 @@
     tools:context="com.netease.lya.localpersistence.MainActivity">
 
     <Button
-        android:id="@+id/load"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/load" />
-
-    <Button
         android:id="@+id/addUserInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/load"
         android:gravity="center"
         android:text="@string/addUserInfo" />
 

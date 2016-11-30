@@ -13,13 +13,18 @@ import android.widget.TextView;
 import com.netease.lya.localpersistence.asyctask.DeleteUserInfoTask;
 import com.netease.lya.localpersistence.asyctask.GetUserInfoTask;
 import com.netease.lya.localpersistence.data.UserInfo;
+import com.netease.lya.localpersistence.data.source.local.UserInfoLocalDataSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+
+import rx.Subscription;
 
 public class MainActivity extends AppCompatActivity {
 
     private UserInfoAdapter adapter;
+    private Subscription subscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +46,12 @@ public class MainActivity extends AppCompatActivity {
                 EditUserInfoActivity.launch(MainActivity.this);
             }
         });
-        findViewById(R.id.load).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GetUserInfoTask task = new GetUserInfoTask(MainActivity.this) {
-                    @Override
-                    protected void onGetAllUserInfo(List<UserInfo> allUserInfo) {
-                        adapter.setData(allUserInfo);
-                    }
-                };
-                task.execute();
-            }
-        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        subscription = UserInfoLocalDataSource.getInstance(MainActivity.this).getAllUserInfo()
     }
 
     private static class UserInfoAdapter extends BaseAdapter {
