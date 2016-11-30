@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Local Persistence</string>
+    <string name="addUserInfo">add new user info</string>
+    <string name="nameHint">name</string>
+    <string name="passwordHint">password</string>
+    <string name="saveInfo">save info</string>
+    <string name="load">load user info</string>
+    <string name="removeUserInfo">remove this UserInfo</string>
+</resources>
