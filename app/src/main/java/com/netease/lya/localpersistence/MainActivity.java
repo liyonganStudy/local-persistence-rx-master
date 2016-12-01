@@ -19,7 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import rx.Observer;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,12 +49,34 @@ public class MainActivity extends AppCompatActivity {
                 EditUserInfoActivity.launch(MainActivity.this);
             }
         });
+        subscription = UserInfoLocalDataSource.getInstance(MainActivity.this).getAllUserInfo()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<UserInfo>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<UserInfo> userInfo) {
+                        adapter.setData(userInfo);
+                    }
+                });
+
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-//        subscription = UserInfoLocalDataSource.getInstance(MainActivity.this).getAllUserInfo()
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 
     private static class UserInfoAdapter extends BaseAdapter {

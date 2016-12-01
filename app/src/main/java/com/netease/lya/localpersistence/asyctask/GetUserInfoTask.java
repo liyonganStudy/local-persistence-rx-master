@@ -22,7 +22,8 @@ public abstract class GetUserInfoTask extends AsyncTask<Void, Void, List<UserInf
 
     @Override
     protected List<UserInfo> doInBackground(Void... params) {
-        return UserInfoLocalDataSource.getInstance(context).getAllUserInfo();
+//        return UserInfoLocalDataSource.getInstance(context).getAllUserInfo();
+        return null;
     }
 
     @Override
